@@ -46,7 +46,6 @@ module.exports.products= async (req, res) => {
   // const totalPage = Math.ceil(countProduct/objectPagination.limitItems);
   // console.log(totalPage)
   // objectPagination.totalPage = totalPage
-  //end phan trang
   const products = await Product.find(find).limit(objectPagination.limitItems).skip(objectPagination.skip);
   res.render("./admin/pages/products/index.pug",{
     pageTitle:"Danh sách sản phẩm",
@@ -56,12 +55,14 @@ module.exports.products= async (req, res) => {
     pagination : objectPagination
   })
 }
+//end phan trang
+
 //[Patch]/admin/product/change-status/:status/:id
 module.exports.changeStatus = async (req ,res) => {
-  const status = req.params.status
-  const id = req.params.id
-  await Product.updateOne({ _id : id},{status : status})
-  res.redirect("back")
+  const status = req.params.status;
+  const id = req.params.id;
+  await Product.updateOne({ _id : id},{status : status});
+  res.redirect("back");
   
 }
 //[Patch]/admin/product/products/change-multi
@@ -81,4 +82,9 @@ module.exports.changeMulti = async (req ,res) => {
   }
    res.redirect("back")
 };    
+module.exports.deleteItem = async (req, res) => {
+  const id = req.params.id;
+   await Product.deleteOne({ _id : id});
+   res.redirect("back");
+}
   
