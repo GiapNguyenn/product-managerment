@@ -10,9 +10,6 @@ if(buttonChangeStatus.length > 0) {
       const statusCurrent = button.getAttribute("data-status")
       const idCurrent = button.getAttribute("data-id")
       let statusChange =statusCurrent == "active" ? "inactive" : "active"
-      console.log(`${statusCurrent}`)
-      console.log(`${idCurrent}`)
-      console.log(`${statusChange}`)
       const action = path + `/${statusChange}/${idCurrent}?_method=PATCH`
       console.log(action)
         formChangeStatus.action = action;
