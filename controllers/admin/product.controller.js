@@ -28,6 +28,7 @@ module.exports.products= async (req, res) => {
 
   //phan trang 
   const countProduct = await Product.countDocuments(find) //truy vấn trong database dùng asyn await
+
   let objectPagination = paginationHelper(
     {
     currentPage : 1,
@@ -46,7 +47,12 @@ module.exports.products= async (req, res) => {
   // const totalPage = Math.ceil(countProduct/objectPagination.limitItems);
   // console.log(totalPage)
   // objectPagination.totalPage = totalPage
-  const products = await Product.find(find).limit(objectPagination.limitItems).skip(objectPagination.skip);
+
+  const products = await Product.find(find)
+  .sort({position : "desc"})
+  .limit(objectPagination.limitItems)
+  .skip(objectPagination.skip);
+
   res.render("./admin/pages/products/index.pug",{
     pageTitle:"Danh sách sản phẩm",
     products:products,
@@ -79,6 +85,13 @@ module.exports.changeMulti = async (req ,res) => {
       break;
     case "delete-all":
       await Product.updateMany({ _id : {$in : ids }} , {deleted : true , deletedAt : new Date()})
+      break;
+    case "change-position":
+      for (const item of ids) {
+        let [id , position] = item.split("-");
+        const posion = parseInt(position);
+        await Product.updateOne({ _id : id } , {position : position})
+      }
       break;
     default:
       break;
