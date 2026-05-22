@@ -16,4 +16,3 @@ module.exports.index = async (req, res) => {
     products: productNew
   })
 }
-// 1h22p baif 17 t3 

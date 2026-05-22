@@ -5,7 +5,10 @@ const methodOverride = require('method-override')
 const route = require("./routers/client/index.route")
 const routeAdmin = require("./routers/admin/index.route")
 const bodyParser = require('body-parser')
-const app = express();
+const flash = require('express-flash')
+const cookieParser = require('cookie-parser')
+const session = require('express-session')
+const app = express();  
 
 app.use(methodOverride('_method'))
 
@@ -17,6 +20,11 @@ const port = process.env.PORT;
 const database = require("./config/database")
 database.connect()
 
+// flash 
+  app.use(cookieParser('KeyBatKy'));
+  app.use(session({ cookie: { maxAge: 60000 }}));
+  app.use(flash());
+// End flash 
 //lech cau hinh pug
 app.set('views', './views');
 app.set('view engine', 'pug');
