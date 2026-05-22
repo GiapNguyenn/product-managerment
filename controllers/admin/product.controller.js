@@ -88,6 +88,7 @@ module.exports.changeMulti = async (req ,res) => {
       break;
     case "delete-all":
       await Product.updateMany({ _id : {$in : ids }} , {deleted : true , deletedAt : new Date()})
+       req.flash('success', `Cập nhật trạng thái đã xoá thành công cho ${ids.length} bảng ghi`);
       break;
     case "change-position":
       for (const item of ids) {
@@ -95,6 +96,7 @@ module.exports.changeMulti = async (req ,res) => {
         const posion = parseInt(position);
         await Product.updateOne({ _id : id } , {position : position})
       }
+       req.flash('success', `Cập nhật vị trí thành công cho ${ids.length} bảng ghi`);
       break;
     default:
       break;
@@ -109,7 +111,9 @@ module.exports.deleteItem = async (req, res) => {
       deleted : true ,
       deletedAt : new Date()
     }
+    
   )
+  req.flash('success', `Cập nhật trạng thái đã xoá thành công `);
    res.redirect("back");
 }
 
