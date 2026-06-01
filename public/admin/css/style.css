@@ -24,8 +24,8 @@
 .body .main {
   margin: 15px;
   position: relative;
-  left: 150px;
-  width: calc(100% -140px);
+  left: 160px;
+  width: calc(100% - 160px);
 }
 /* end body  */
 /* sider  */
