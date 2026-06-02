@@ -67,7 +67,6 @@ block main
         class="form-group"
         upload-image
         )
-        label(for="thumbnail") Ảnh
         input(
             type="file"
             class="form-control-file"
@@ -80,6 +79,7 @@ block main
             upload-image-preview
              class = "image-preview"
         )
+        span(class="btn btn-secondary" data-close-upload) X
     div(class="form-group")
         label(for="position") Vị trí
         input(
