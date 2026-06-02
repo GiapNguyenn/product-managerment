@@ -3,9 +3,9 @@ module.exports.createPost = (req, res, next) => {
         req.flash("error", "vui lòng ko để trống ô tiêu đề");
         res.redirect("back");
         return;
-    }    if (!req.body.title.length  < 8) {
+    }    if (!req.body.title.length  > 8) {
         req.flash("error", "vui lòng nhập ít nhất 8 kí tự");
-        res.redirect("back");
+        res.redirect(req.get("Referrer") || "/");
         return;
     }
     next();
