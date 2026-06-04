@@ -7,8 +7,6 @@ const { render } = require("pug")
 // [GET] /admin/products
 module.exports.products = async (req, res) => {
   const filterStatus = filterStatusHelper(req.query)
-  console.log(filterStatus)
-  // console.log(req.query.status)
   let find = {
     deleted: false,
   }
@@ -198,6 +196,5 @@ module.exports.detail = async (req, res) => {
     res.redirect(`${systemConfig.perfixAdmin}/products`)
   }
 }
-
 
 

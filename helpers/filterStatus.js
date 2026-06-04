@@ -24,5 +24,4 @@ module.exports = (query) => {
     filterStatus[index].class ="active"
   }
   return filterStatus
-  // 40p41s bai 17
 }
