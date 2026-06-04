@@ -26,13 +26,14 @@ database.connect()
   app.use(flash());
 // End flash 
 //lech cau hinh pug
-app.set('views', './views');
+app.set('views', `${__dirname}/views`);
 app.set('view engine', 'pug');
 
 app.use(bodyParser.urlencoded({ extended: false }))
 
 //nhúng file tĩnh vào bằng lệnh bên dưới
-app.use(express.static('public'))
+console.log(__dirname)
+app.use(express.static(`${__dirname}/public`))
 
 // Routers 
 route(app)
