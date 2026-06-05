@@ -140,6 +140,7 @@ if (formChangeMulti) {
 // End Show Alert
 
 //uplaod image 
+
 const uploadImage =document.querySelector("[upload-image]");
 if(uploadImage)
 {
@@ -148,17 +149,53 @@ if(uploadImage)
   const closeUpload = document.querySelector("[data-close-upload]")
   closeUpload.addEventListener("click", () => {
     uploadImageInput.value = "";
-    uploadImagePreview.src = "";
+    uploadImagePreview.src = ""; 
     closeUpload.style.display = "none"
     
   })
-  uploadImage.addEventListener("change", (e) => {
-    console.log(e)
-    const file =e.target.files[0];
-    if(file)
-    {
-      uploadImagePreview.src = URL.createObjectURL(file)
-    }
-  });
+uploadImageInput.addEventListener("change", (e) => {
+        const file = e.target.files[0];
+        console.log(file)
+        if (file) {
+            uploadImagePreview.src = URL.createObjectURL(file);
+            closeUpload.style.display = "inline-block";
+        }
+    });
 }
 //End uplaod image 
+
+// sort
+const sort = document.querySelector("[sort]");
+if(sort) {
+  let url = new URL(window.location.href);
+  const sortSelect = sort.querySelector("[sort-select]");
+  const sortClear = document.querySelector("[sort-clear]");
+
+  // sắp xếp 
+  sortSelect.addEventListener("change", (e) => {
+    const value = e.target.value;
+    const [sortKey , sortValue] = value.split("-");
+    url.searchParams.set("sortKey", sortKey);
+    url.searchParams.set("sortValue", sortValue);
+    window.location.href = url.href;
+  });
+
+  // xoá sắp xếp  
+  sortClear.addEventListener("click", () => {
+    url.searchParams.delete("sortKey");
+    url.searchParams.delete("sortValue");
+    window.location.href = url.href;
+  });
+   
+  // thêm selected  cho option đã chọn 
+  sortKey = url.searchParams.get("sortKey");
+  sortValue = url.searchParams.get("sortValue");
+  if(sortKey && sortValue) {
+    const stringSort = `${sortKey}-${sortValue}`;
+    const optionSelected = sortSelect.querySelector(`option[value='${stringSort}']`)
+    if(optionSelected) {
+      optionSelected.selected = true;
+    }
+  }
+} 
+// end sort

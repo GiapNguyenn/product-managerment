@@ -35,19 +35,18 @@ module.exports.products = async (req, res) => {
     req.query,
     countProduct
   )
-
-  // if(req.query.page){
-  //   objectPagination.currentPage =parseInt(req.query.page);
-  // }
-  // objectPagination.skip = (objectPagination.currentPage -1) * objectPagination.limitItems
-  // console.log(objectPagination.currentPage) //trang hiện tại
-  // const countProduct = await Product.countDocuments(find) //truy vấn trong database dùng asyn await
-  // const totalPage = Math.ceil(countProduct/objectPagination.limitItems);
-  // console.log(totalPage)
-  // objectPagination.totalPage = totalPage
+  //sort
+  let sort = {};
+  if(req.query.sortKey && req.query.sortValue){
+    sort[req.query.sortKey] = req.query.sortValue;
+  }
+  else {
+    sort.createdAt = "desc";
+  }
+  //end sort
 
   const products = await Product.find(find)
-    .sort({ position: "desc" })
+    .sort(sort)
     .limit(objectPagination.limitItems)
     .skip(objectPagination.skip);
 
@@ -193,5 +192,4 @@ module.exports.detail = async (req, res) => {
     res.redirect(`${systemConfig.perfixAdmin}/products`)
   }
 }
-
 
