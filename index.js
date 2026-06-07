@@ -1,6 +1,7 @@
 
 //lech cau hinh express
 const express = require('express');
+const path = require('path');
 const methodOverride = require('method-override')
 const route = require("./routers/client/index.route")
 const routeAdmin = require("./routers/admin/index.route")
@@ -25,6 +26,11 @@ database.connect()
   app.use(session({ cookie: { maxAge: 60000 }}));
   app.use(flash());
 // End flash 
+
+//tinyMCE
+app.use('/tinymce', express.static(path.join(__dirname, 'node_modules', 'tinymce')));
+//end tinyMCE
+
 //lech cau hinh pug
 app.set('views', `${__dirname}/views`);
 app.set('view engine', 'pug');
