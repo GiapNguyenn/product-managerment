@@ -6,12 +6,15 @@
   top: 0;
   z-index: 999;
 }
+
 .header .inner-logo a {
   font-size: 24px;
   font-weight: 700;
   color: #fff;
 }
+
 /* end header  */
+
 .body .sider {
   width: 150px;
   background: #323232;
@@ -21,10 +24,11 @@
   top: 56px;
   left: 0;
 }
+
 .body .main {
   margin: 15px;
   position: relative;
-  left: 160px;
+  left: 150px;
   width: calc(100% - 160px);
 }
 /* end body  */
