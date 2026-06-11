@@ -1,20 +1,29 @@
 const ProductCategory = require("../../model/products-category.model")
 const systemConfig = require("../../config/system")
+const createTreeHelper = require("../../helpers/createTree")
 // [GET] /admin/product-category 
 module.exports.index = async (req, res) => {
     let find = {
         deleted : false,
     }
     const records = await ProductCategory.find(find)
+    const newRecords = createTreeHelper.Tree(records)
     res.render("admin/pages/products-category/index" , {
         pageTitle : "Danh mục sản phẩm",
-        records : records
+        records : newRecords
     });
 }
 // [GET] /admin/products-category/create 
-module.exports.create = (req, res) => {
+module.exports.create = async (req, res) => {
+    let find = {
+        deleted : false
+    };
+    const records = await ProductCategory.find(find);
+    const newRecords = createTreeHelper.Tree(records)
+    console.log(newRecords)
     res.render("admin/pages/products-category/create" , {
-        pageTitle : "Thêm mới danh mục sản phẩm"
+        pageTitle : "Thêm mới danh mục sản phẩm",
+        records : newRecords
     });
 }
 // [POST] /admin/products-category/create
@@ -29,3 +38,4 @@ module.exports.createPost = async (req, res) => {
  await record.save();
  res.redirect(`${systemConfig.perfixAdmin}/products-category`) ;
 }
+// 1h30p bai 20 tt 
