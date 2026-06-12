@@ -4,7 +4,8 @@ const multer = require("multer")
 const upload = multer()
 const controller = require("../../controllers/admin/products-category.controller")
 const uploadCloud = require("../../middlewares/admin/uploadCloud.middlewares")
-const CategoryValidate = require("../../validates/admin/products-category.validate")
+const CategoryValidate = require("../../validates/admin/products-category.validate");
+const { validate } = require('../../model/product.model');
 
 
 
@@ -16,5 +17,7 @@ router.post(
     uploadCloud.upload,
     CategoryValidate.createPost,
     controller.createPost);
+router.get('/edit/:id', controller.edit)
+router.patch('/edit/:id', upload.single("thumbnail"), uploadCloud.upload,CategoryValidate.createPost ,controller.editPatch);
 
 module.exports = router  
