@@ -1,17 +1,32 @@
 const ProductCategory = require("../../model/products-category.model")
 const systemConfig = require("../../config/system")
+const filterStatusHelper = require("../../helpers/filterStatus")
 const createTreeHelper = require("../../helpers/createTree")
 // [GET] /admin/product-category 
 module.exports.index = async (req, res) => {
+    const filterStatus = filterStatusHelper(req.query)
     let find = {
         deleted : false,
     }
+    if (req.query.status) {
+    find.status = req.query.status
+  }
     const records = await ProductCategory.find(find)
     const newRecords = createTreeHelper.Tree(records)
     res.render("admin/pages/products-category/index" , {
         pageTitle : "Danh mục sản phẩm",
-        records : newRecords
+        records : newRecords,
+        filterStatus: filterStatus
     });
+}
+//[Patch]/admin/product/change-status/:status/:id
+module.exports.changeStatus = async (req, res) => {
+  const status = req.params.status;
+  const id = req.params.id;
+  await ProductCategory.updateOne({ _id: id }, { status: status });
+  req.flash('success', 'Cập nhật trạng thái thành công ');
+  res.redirect("back");
+
 }
 // [GET] /admin/products-category/create 
 module.exports.create = async (req, res) => {
