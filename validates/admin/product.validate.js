@@ -10,4 +10,3 @@ module.exports.createPost = (req, res, next) => {
     }
     next();
 }
-// 1h12p 

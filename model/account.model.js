@@ -13,7 +13,7 @@ const accountSchema = new mongoose.Schema(
     phone : String ,
     avatar : String ,
     role_id :String,
-    Status : String,
+    status : String,
     deleted : {
       type : Boolean ,
       default : false
@@ -25,6 +25,6 @@ const accountSchema = new mongoose.Schema(
       createdAt : true
     }
   }) ;
-const Account = mongoose.model('Product', productSchema ,"accounts")
+const Account = mongoose.model('Account', accountSchema ,"accounts")
 
 module.exports = Account
