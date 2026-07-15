@@ -32,5 +32,3 @@ tinymce.init({
   },
     license_key: 'gpl'
 });
-
-// Bài 20 tiết 1 38p 
