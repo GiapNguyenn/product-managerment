@@ -33,3 +33,8 @@ module.exports.loginPost = async ( req , res ) => {
     res.cookie("token", user.token)
     res.redirect(`${systemConfig.perfixAdmin}/dashboard`)
 }
+module.exports.logout = (req , res) => {
+    // xoá token trong cookie 
+    res.clearCookie("token")
+    res.redirect(`${systemConfig.perfixAdmin}/auth/login`)
+}
