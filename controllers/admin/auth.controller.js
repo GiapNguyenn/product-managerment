@@ -3,9 +3,14 @@ const Account = require("../../model/account.model")
 const systemConfig = require("../../config/system");
 // [GET]/admin/login 
 module.exports.login = ( req , res ) => {
-    res.render("admin/pages/auth/index.pug" , {
+    console.log(req.cookies.token)
+    if(req.cookies.token) {
+        res.redirect(`${systemConfig.perfixAdmin}/dashboard`)
+    }else {
+        res.render("admin/pages/auth/index.pug" , {
         pageTitle : "Trang đăng nhập"
     })
+    }
 }
 // [POST]/admin/login 
 module.exports.loginPost = async ( req , res ) => {
